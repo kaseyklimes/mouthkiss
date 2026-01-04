@@ -11,3 +11,10 @@ Thumbs.db
 
 # Netlify
 .netlify/
+
+# Assets - add your own images
+# (these are gitignored so users add their own logo and background)
+assets/*.png
+assets/*.jpg
+assets/*.jpeg
+assets/*.ico

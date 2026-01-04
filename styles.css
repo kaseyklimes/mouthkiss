@@ -138,7 +138,7 @@ img {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.95);
+  background-color: rgba(0, 0, 0, 0.05);
   z-index: -1;
 }
 
@@ -150,62 +150,67 @@ img {
 }
 
 /* ============================================
-   Marquee
+   Wavy Marquee (SVG textPath animation)
    ============================================ */
-.marquee-container {
+.wavy-marquee {
   width: 100%;
   overflow: hidden;
   margin-bottom: var(--spacing-lg);
   position: relative;
+  height: 80px;
 }
 
-.marquee-container::before,
-.marquee-container::after {
+/* Fade edges */
+.wavy-marquee::before,
+.wavy-marquee::after {
   content: '';
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 50px;
+  width: 100px;
   z-index: 2;
   pointer-events: none;
 }
 
-.marquee-container::before {
+.wavy-marquee::before {
   left: 0;
-  background: linear-gradient(to right, var(--color-background), transparent);
+  background: linear-gradient(to right, rgba(0,0,0,0.9), transparent);
 }
 
-.marquee-container::after {
+.wavy-marquee::after {
   right: 0;
-  background: linear-gradient(to left, var(--color-background), transparent);
+  background: linear-gradient(to left, rgba(0,0,0,0.9), transparent);
 }
 
-.marquee {
-  display: flex;
-  white-space: nowrap;
-  animation: marquee 20s linear infinite;
+.wavy-marquee svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
-.marquee-text,
-.marquee-separator {
+.wavy-marquee .wavy-text {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 24px;
   font-weight: 400;
-  padding: 0 0.5em;
+  fill: var(--color-text);
 }
 
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-/* Pause on hover */
-.marquee-container:hover .marquee {
+/* Pause animation on hover */
+.wavy-marquee:hover svg animate {
   animation-play-state: paused;
+}
+
+/* Screen reader text */
+.wavy-marquee .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ============================================
@@ -352,9 +357,12 @@ img {
     gap: var(--spacing-sm);
   }
 
-  .marquee-text,
-  .marquee-separator {
-    font-size: 1.25rem;
+  .wavy-marquee {
+    height: 60px;
+  }
+
+  .wavy-marquee .wavy-text {
+    font-size: 18px;
   }
 }
 

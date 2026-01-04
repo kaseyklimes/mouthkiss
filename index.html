@@ -42,18 +42,30 @@
       <div class="hero-overlay"></div>
 
       <div class="hero-content">
-        <!-- Marquee -->
-        <div class="marquee-container">
-          <div class="marquee">
-            <span class="marquee-text">it's a cafe in our apartment</span>
-            <span class="marquee-separator">〰️</span>
-            <span class="marquee-text">it's a cafe in our apartment</span>
-            <span class="marquee-separator">〰️</span>
-            <span class="marquee-text">it's a cafe in our apartment</span>
-            <span class="marquee-separator">〰️</span>
-            <span class="marquee-text">it's a cafe in our apartment</span>
-            <span class="marquee-separator">〰️</span>
-          </div>
+        <!-- Wavy Marquee -->
+        <div class="wavy-marquee">
+          <svg viewBox="0 0 1000 80" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <!-- Wavy path with sine wave: ~4 waves, amplitude 15px -->
+              <path id="wave-path" fill="none" d="M -500 40
+                Q -437.5 15, -375 40 T -250 40 T -125 40 T 0 40
+                T 125 40 T 250 40 T 375 40 T 500 40
+                T 625 40 T 750 40 T 875 40 T 1000 40
+                T 1125 40 T 1250 40 T 1375 40 T 1500 40" />
+            </defs>
+            <text class="wavy-text">
+              <textPath href="#wave-path">
+                it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️
+                <animate
+                  attributeName="startOffset"
+                  from="0%"
+                  to="-50%"
+                  dur="20s"
+                  repeatCount="indefinite" />
+              </textPath>
+            </text>
+          </svg>
+          <span class="sr-only">it's a cafe in our apartment</span>
         </div>
 
         <!-- Tagline -->
