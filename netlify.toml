@@ -4,12 +4,12 @@
 [build]
   publish = "."
 
-# Redirect www to non-www (or vice versa)
-[[redirects]]
-  from = "https://mouthkisscafe.com/*"
-  to = "https://www.mouthkisscafe.com/:splat"
-  status = 301
-  force = true
+# Redirect www to non-www (disabled until domain transfer completes)
+# [[redirects]]
+#   from = "https://www.mouthkisscafe.com/*"
+#   to = "https://mouthkisscafe.com/:splat"
+#   status = 301
+#   force = true
 
 # Custom headers for security and performance
 [[headers]]
