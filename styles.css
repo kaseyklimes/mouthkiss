@@ -5,7 +5,7 @@
 /* CSS Custom Properties */
 :root {
   /* Colors */
-  --color-background: #1a1a1a;
+  --color-background: #ffffff;
   --color-text: #ffffff;
   --color-text-muted: #cccccc;
   --color-accent: #fc221c;
@@ -337,7 +337,7 @@ img {
 
 .footer-item {
   font-size: 0.9rem;
-  color: var(--color-text-muted);
+  color: #666666;
 }
 
 .footer-item a {
@@ -345,7 +345,7 @@ img {
 }
 
 .footer-item a:hover {
-  color: var(--color-text);
+  color: #000000;
 }
 
 /* ============================================
