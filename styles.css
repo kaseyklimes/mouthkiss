@@ -421,12 +421,175 @@ img {
 
 /* ============================================
    MailerLite Form Overrides
-   When you embed the MailerLite form, you may need
-   to add custom CSS to match the site styling.
-   Add overrides here.
+   These styles override MailerLite's default form styling
+   to match the Mouthkiss Cafe design.
    ============================================ */
-/*
-.ml-form-embedWrapper { }
-.ml-form-embedBody { }
-.ml-form-embedSubmit button { }
-*/
+
+/* Form container */
+.ml-form-embedWrapper {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  max-width: 500px !important;
+  margin: 0 auto !important;
+  font-family: var(--font-sans) !important;
+}
+
+.ml-form-embedWrapper * {
+  box-sizing: border-box !important;
+}
+
+.ml-form-embedBody {
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+/* Hide MailerLite default headers/text */
+.ml-form-embedContent {
+  display: none !important;
+}
+
+/* Form layout */
+.ml-form-formContent {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: var(--spacing-sm) !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Field rows - name and last name side by side */
+.ml-form-fieldRow {
+  margin: 0 !important;
+  padding: 0 !important;
+  flex: 1 1 calc(50% - 0.5rem) !important;
+  min-width: 0 !important;
+}
+
+/* Email field takes full width */
+.ml-form-fieldRow.ml-last-item {
+  flex: 1 1 100% !important;
+}
+
+.ml-field-group {
+  width: 100% !important;
+}
+
+/* Input fields */
+.ml-form-embedWrapper input.form-control,
+.ml-form-embedWrapper input[type="text"],
+.ml-form-embedWrapper input[type="email"],
+.ml-form-formContent input {
+  width: 100% !important;
+  padding: 1rem 2rem !important;
+  font-family: 'untitled-sans', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  font-size: 0.875rem !important;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  border: none !important;
+  border-radius: 50px !important;
+  color: #ffffff !important;
+  transition: border-color 0.2s ease, background-color 0.2s ease !important;
+  box-sizing: border-box !important;
+  height: auto !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+
+.ml-form-embedWrapper input::placeholder {
+  color: var(--color-text-muted) !important;
+  opacity: 1 !important;
+}
+
+.ml-form-embedWrapper input:focus {
+  outline: none !important;
+  border-color: var(--color-text) !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  box-shadow: none !important;
+}
+
+/* Submit button container */
+.ml-form-embedSubmit {
+  width: 100% !important;
+  margin-top: var(--spacing-sm) !important;
+}
+
+/* Submit button */
+.ml-form-embedSubmit button.primary,
+.ml-form-embedSubmit button[type="submit"],
+.ml-form-embedWrapper .ml-form-embedSubmit button {
+  width: 100% !important;
+  padding: 1rem 2rem !important;
+  font-family: 'untitled-sans', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  background-color: #ffffff !important;
+  color: #fc221c !important;
+  border: none !important;
+  border-radius: 50px !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  box-shadow: none !important;
+  line-height: 1.5 !important;
+  height: auto !important;
+  letter-spacing: 0.02em !important;
+}
+
+.ml-form-embedSubmit button.primary:hover {
+  background-color: var(--color-accent) !important;
+  color: var(--color-text) !important;
+  transform: scale(1.05) rotate(-1deg) !important;
+  box-shadow: 0 8px 25px rgba(252, 34, 28, 0.4) !important;
+}
+
+.ml-form-embedSubmit button.primary:active {
+  transform: scale(0.95) rotate(0deg) !important;
+  box-shadow: 0 2px 10px rgba(252, 34, 28, 0.3) !important;
+}
+
+/* Loading button */
+.ml-form-embedSubmit button.loading {
+  display: none !important;
+}
+
+/* Success message styling */
+.ml-form-successBody {
+  background: transparent !important;
+  padding: var(--spacing-md) !important;
+  text-align: center !important;
+}
+
+.ml-form-successBody .ml-form-successContent h4 {
+  font-family: var(--font-display) !important;
+  font-size: 1.5rem !important;
+  margin-bottom: var(--spacing-sm) !important;
+  color: var(--color-text) !important;
+}
+
+.ml-form-successBody .ml-form-successContent p {
+  font-size: 0.875rem !important;
+  color: var(--color-text-muted) !important;
+  font-family: var(--font-sans) !important;
+}
+
+/* Error messages */
+.ml-form-embedWrapper .ml-error {
+  color: var(--color-accent) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.75rem !important;
+  margin-top: 0.25rem !important;
+}
+
+/* Hide powered by MailerLite footer */
+.ml-form-embedWrapper .ml-form-embedFooter,
+.ml-form-embedWrapper .ml-mobileButton-horizontal,
+.ml-form-embedWrapper .ml-form-align-center {
+  display: none !important;
+}
+
+/* Responsive - stack fields on mobile */
+@media (max-width: 767px) {
+  .ml-form-fieldRow {
+    flex: 1 1 100% !important;
+  }
+}

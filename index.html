@@ -28,6 +28,16 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="styles.css">
+
+  <!-- MailerLite Universal -->
+  <script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2016721');
+  </script>
+  <!-- End MailerLite Universal -->
 </head>
 <body>
   <!-- Header with Logo -->
@@ -57,25 +67,8 @@
         <!-- Schedule -->
         <p class="schedule">SUNDAY MORNINGS<br>THIS WINTER</p>
 
-        <!-- Email Signup Form -->
-        <!-- NOTE: Replace this form with MailerLite embed code -->
-        <form class="signup-form" id="signup-form">
-          <div class="form-row">
-            <div class="form-field">
-              <label for="fname" class="visually-hidden">First Name</label>
-              <input type="text" id="fname" name="fname" placeholder="First Name" required>
-            </div>
-            <div class="form-field">
-              <label for="lname" class="visually-hidden">Last Name</label>
-              <input type="text" id="lname" name="lname" placeholder="Last Name" required>
-            </div>
-          </div>
-          <div class="form-field">
-            <label for="email" class="visually-hidden">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="Email Address" required>
-          </div>
-          <button type="submit" class="submit-btn">get a love letter when the cafe is open</button>
-        </form>
+        <!-- Email Signup Form (MailerLite Embedded) -->
+        <div class="ml-embedded" data-form="Ooxz0a"></div>
       </div>
 
       <!-- Wave Section Divider -->
@@ -98,17 +91,112 @@
     </div>
   </footer>
   <script>
-    // Custom form validation
-    document.querySelectorAll('#signup-form input[required]').forEach(input => {
-      input.oninvalid = () => input.setCustomValidity('hold up who the hell are you');
-      input.oninput = () => input.setCustomValidity('');
-    });
+    // Intercept MailerLite form submission for YouTube redirect
+    document.addEventListener('DOMContentLoaded', function() {
+      // Wait for MailerLite to load the form
+      const checkForm = setInterval(function() {
+        const form = document.querySelector('.ml-block-form');
+        if (form) {
+          clearInterval(checkForm);
 
-    // Form submission - redirect to YouTube with autoplay
-    document.getElementById('signup-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      // TODO: Add MailerLite integration here to actually save the email
-      window.location.href = 'https://www.youtube.com/watch?v=pNj9bXKGOiI&autoplay=1';
+          // Fix button text and styles
+          const btn = form.querySelector('button.primary');
+          if (btn) {
+            btn.textContent = 'get a love letter when the cafe is open';
+            btn.style.cssText = `
+              background-color: #ffffff !important;
+              color: #fc221c !important;
+              font-family: 'untitled-sans', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+              font-size: 0.875rem !important;
+              font-weight: 600 !important;
+              text-transform: uppercase !important;
+              border: none !important;
+              border-radius: 50px !important;
+              padding: 1rem 2rem !important;
+              width: 100% !important;
+              cursor: pointer !important;
+              transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+            `;
+          }
+
+          // Style all inputs
+          const inputStyle = `
+            background-color: rgba(0, 0, 0, 0.4) !important;
+            color: #ffffff !important;
+            font-family: 'untitled-sans', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+            font-size: 0.875rem !important;
+            border: 1px solid rgba(255, 255, 255, 0.7) !important;
+            border-radius: 50px !important;
+            padding: 1rem 2rem !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+          `;
+          form.querySelectorAll('input.form-control').forEach(input => {
+            input.style.cssText = inputStyle;
+          });
+
+          // Add placeholder styling via stylesheet
+          const style = document.createElement('style');
+          style.textContent = `
+            .ml-form-embedWrapper input::placeholder {
+              color: rgba(255, 255, 255, 0.85) !important;
+              opacity: 1 !important;
+            }
+          `;
+          document.head.appendChild(style);
+
+          // Add required attribute and custom validation message to email field
+          const emailInput = form.querySelector('input[name="fields[email]"]');
+          if (emailInput) {
+            emailInput.required = true;
+            emailInput.oninvalid = () => emailInput.setCustomValidity('wait, who the hell are you?');
+            emailInput.oninput = () => emailInput.setCustomValidity('');
+          }
+
+          form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Validate form first
+            if (!form.checkValidity()) {
+              form.reportValidity();
+              return;
+            }
+
+            const btn = form.querySelector('button.primary');
+            const email = form.querySelector('input[name="fields[email]"]').value;
+            const name = form.querySelector('input[name="fields[name]"]').value;
+            const lastName = form.querySelector('input[name="fields[last_name]"]').value;
+
+            // Update button state
+            if (btn) {
+              btn.disabled = true;
+              btn.textContent = 'sending...';
+            }
+
+            // Submit via JSONP (MailerLite's expected format)
+            const callbackName = 'ml_callback_' + Date.now();
+            let url = form.action + '?callback=' + callbackName;
+            url += '&fields[email]=' + encodeURIComponent(email);
+            url += '&fields[name]=' + encodeURIComponent(name);
+            url += '&fields[last_name]=' + encodeURIComponent(lastName);
+            url += '&ml-submit=1&anticsrf=true&ajax=1';
+
+            // JSONP callback
+            window[callbackName] = function(response) {
+              delete window[callbackName];
+              window.location.href = 'https://www.youtube.com/watch?v=pNj9bXKGOiI&autoplay=1';
+            };
+
+            // Create script tag for JSONP
+            const script = document.createElement('script');
+            script.src = url;
+            script.onerror = function() {
+              window.location.href = 'https://www.youtube.com/watch?v=pNj9bXKGOiI&autoplay=1';
+            };
+            document.body.appendChild(script);
+          });
+        }
+      }, 100);
     });
 
     // Infinite wavy marquee
