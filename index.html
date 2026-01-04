@@ -5,22 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>Mouth Kiss Cafe</title>
+  <title>Mouthkiss Cafe</title>
   <meta name="description" content="Mouthkiss Cafe - a cafe in our apartment. Coffee, pastries, and pals.">
 
   <!-- Open Graph / Social -->
-  <meta property="og:site_name" content="Mouth Kiss Cafe">
-  <meta property="og:title" content="Mouth Kiss Cafe">
+  <meta property="og:site_name" content="Mouthkiss Cafe">
+  <meta property="og:title" content="Mouthkiss Cafe">
   <meta property="og:url" content="https://www.mouthkisscafe.com">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://www.mouthkisscafe.com/assets/logo.png">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Mouth Kiss Cafe">
+  <meta name="twitter:title" content="Mouthkiss Cafe">
   <meta name="twitter:image" content="https://www.mouthkisscafe.com/assets/logo.png">
 
   <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
 
   <!-- Fonts loaded via @font-face in styles.css -->
@@ -32,7 +33,7 @@
   <!-- Header with Logo -->
   <header class="header">
     <a href="/" class="logo-link">
-      <img src="assets/logo.png" alt="Mouth Kiss Cafe" class="logo">
+      <img src="assets/logo.png" alt="Mouthkiss Cafe" class="logo">
     </a>
   </header>
 
@@ -46,37 +47,7 @@
       <div class="hero-content">
         <!-- Wavy Marquee -->
         <div class="wavy-marquee">
-          <svg viewBox="0 -20 1000 100" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <path id="wave-path" fill="none" d="M -4000 40
-                Q -3937.5 15, -3875 40 T -3750 40 T -3625 40 T -3500 40
-                T -3375 40 T -3250 40 T -3125 40 T -3000 40
-                T -2875 40 T -2750 40 T -2625 40 T -2500 40
-                T -2375 40 T -2250 40 T -2125 40 T -2000 40
-                T -1875 40 T -1750 40 T -1625 40 T -1500 40
-                T -1375 40 T -1250 40 T -1125 40 T -1000 40
-                T -875 40 T -750 40 T -625 40 T -500 40
-                T -375 40 T -250 40 T -125 40 T 0 40
-                T 125 40 T 250 40 T 375 40 T 500 40
-                T 625 40 T 750 40 T 875 40 T 1000 40
-                T 1125 40 T 1250 40 T 1375 40 T 1500 40
-                T 1625 40 T 1750 40 T 1875 40 T 2000 40
-                T 2125 40 T 2250 40 T 2375 40 T 2500 40
-                T 2625 40 T 2750 40 T 2875 40 T 3000 40
-                T 3125 40 T 3250 40 T 3375 40 T 3500 40
-                T 3625 40 T 3750 40 T 3875 40 T 4000 40
-                T 4125 40 T 4250 40 T 4375 40 T 4500 40
-                T 4625 40 T 4750 40 T 4875 40 T 5000 40
-                T 5125 40 T 5250 40 T 5375 40 T 5500 40
-                T 5625 40 T 5750 40 T 5875 40 T 6000 40" />
-            </defs>
-            <text class="wavy-text">
-              <textPath href="#wave-path">
-                it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️
-                <animate attributeName="startOffset" from="0" to="-4650" dur="120s" repeatCount="indefinite" />
-              </textPath>
-            </text>
-          </svg>
+          <div class="marquee-track" id="marquee-track"></div>
           <span class="sr-only">it's a cafe in our apartment</span>
         </div>
 
@@ -127,10 +98,82 @@
     </div>
   </footer>
   <script>
+    // Custom form validation
     document.querySelectorAll('#signup-form input[required]').forEach(input => {
       input.oninvalid = () => input.setCustomValidity('hold up who the hell are you');
       input.oninput = () => input.setCustomValidity('');
     });
+
+    // Form submission - redirect to YouTube with autoplay
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // TODO: Add MailerLite integration here to actually save the email
+      window.location.href = 'https://www.youtube.com/watch?v=pNj9bXKGOiI&autoplay=1';
+    });
+
+    // Infinite wavy marquee
+    (function() {
+      const text = "it's a cafe in our apartment 〰️ ";
+      const track = document.getElementById('marquee-track');
+      const speed = 50; // pixels per second
+      const waveAmplitude = 15; // wave height in pixels
+      const waveFrequency = 0.012; // wave frequency (lower = smoother)
+
+      // Create enough copies to fill screen + extra for seamless loop
+      const copies = Math.ceil(window.innerWidth / (text.length * 14)) + 2;
+      const fullText = text.repeat(copies);
+
+      // Create individual character spans
+      let html = '';
+      for (let i = 0; i < fullText.length; i++) {
+        const char = fullText[i] === ' ' ? '&nbsp;' : fullText[i];
+        html += `<span class="wave-char">${char}</span>`;
+      }
+      track.innerHTML = html;
+
+      // Duplicate the track content for seamless looping
+      const trackWidth = track.offsetWidth;
+      track.innerHTML = html + html;
+
+      // Cache character elements and their approximate positions
+      const chars = Array.from(track.querySelectorAll('.wave-char'));
+      const charCount = chars.length;
+
+      let offset = 0;
+      let lastTime = performance.now();
+
+      function animate(currentTime) {
+        const delta = (currentTime - lastTime) / 1000;
+        lastTime = currentTime;
+
+        offset -= speed * delta;
+
+        // Reset offset when first copy has scrolled out
+        if (Math.abs(offset) >= trackWidth) {
+          offset = 0;
+        }
+
+        // Apply wave effect to each character using GPU-accelerated transform3d
+        for (let i = 0; i < charCount; i++) {
+          const x = i * 14 + offset;
+          const phase = x * waveFrequency;
+
+          // Y position on the wave
+          const y = Math.sin(phase) * waveAmplitude;
+
+          // Rotation = angle of tangent to the wave
+          const tangent = waveAmplitude * waveFrequency * Math.cos(phase);
+          const angle = Math.atan(tangent) * (180 / Math.PI);
+
+          chars[i].style.transform = `translate3d(0, ${y}px, 0) rotate(${angle}deg)`;
+        }
+
+        track.style.transform = `translate3d(${offset}px, 0, 0)`;
+        requestAnimationFrame(animate);
+      }
+
+      requestAnimationFrame(animate);
+    })();
   </script>
 </body>
 </html>
