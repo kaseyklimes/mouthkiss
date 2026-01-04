@@ -144,14 +144,14 @@ img {
 }
 
 .logo {
-  height: var(--header-logo-height);
+  height: clamp(100px, 25vh, var(--header-logo-height));
   width: auto;
   max-width: 100%;
 }
 
 @media (max-width: 767px) {
   .logo {
-    height: var(--header-mobile-logo-height);
+    height: clamp(80px, 20vh, var(--header-mobile-logo-height));
   }
 }
 
@@ -160,13 +160,14 @@ img {
    ============================================ */
 .hero {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: var(--spacing-xl) var(--spacing-md);
-  padding-top: calc(var(--header-logo-height) + 4vw);
+  padding-top: calc(clamp(100px, 25vh, var(--header-logo-height)) + 4vw);
+  padding-bottom: calc(4vw + 60px);
   overflow: hidden;
 }
 
@@ -385,7 +386,7 @@ img {
    ============================================ */
 @media (max-width: 767px) {
   .hero {
-    padding-top: calc(var(--header-mobile-logo-height) + 8vw);
+    padding-top: calc(clamp(80px, 20vh, var(--header-mobile-logo-height)) + 8vw);
   }
 
   .form-row {
