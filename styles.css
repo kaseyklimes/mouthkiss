@@ -210,10 +210,13 @@ img {
   left: 50%;
   margin-left: -50vw;
   overflow: hidden;
+  margin-top: var(--spacing-xl);
   margin-bottom: var(--spacing-lg);
   height: 60px;
   display: flex;
   align-items: center;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
 }
 
 .marquee-track {
