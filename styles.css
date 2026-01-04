@@ -2,6 +2,55 @@
    Mouthkiss Cafe - Styles
    ============================================ */
 
+/* Font Face Declarations */
+@font-face {
+  font-family: 'new-spirit-condensed';
+  src: url('assets/fonts/New Spirit Light Condensed.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'new-spirit-condensed';
+  src: url('assets/fonts/New Spirit Regular Condensed.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'new-spirit-condensed';
+  src: url('assets/fonts/New Spirit Medium Condensed.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'new-spirit-condensed';
+  src: url('assets/fonts/New Spirit SemiBold Condensed.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'new-spirit-condensed';
+  src: url('assets/fonts/New Spirit Bold Condensed.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'untitled-sans';
+  src: url('assets/fonts/Untitled Sans Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* CSS Custom Properties */
 :root {
   /* Colors */
@@ -11,6 +60,8 @@
   --color-accent: #fc221c;
 
   /* Typography */
+  --font-display: 'new-spirit-condensed', 'Georgia', 'Times New Roman', serif;
+  --font-sans: 'untitled-sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-heading: 'Georgia', 'Times New Roman', serif;
   --font-body: 'Georgia', 'Times New Roman', serif;
 
@@ -153,10 +204,12 @@ img {
    Wavy Marquee (SVG textPath animation)
    ============================================ */
 .wavy-marquee {
-  width: 100%;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
   overflow: hidden;
   margin-bottom: var(--spacing-lg);
-  position: relative;
   height: 80px;
 }
 
@@ -167,7 +220,7 @@ img {
 }
 
 .wavy-marquee .wavy-text {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: 24px;
   font-weight: 400;
   fill: var(--color-text);
@@ -195,15 +248,15 @@ img {
    Content Text
    ============================================ */
 .tagline {
-  font-family: var(--font-heading);
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 600;
   margin-bottom: var(--spacing-md);
   letter-spacing: 0.05em;
 }
 
 .schedule {
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.8;
   margin-bottom: var(--spacing-lg);
@@ -233,7 +286,7 @@ img {
 .form-field input {
   width: 100%;
   padding: var(--spacing-sm) var(--spacing-md);
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   font-size: 1rem;
   background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -256,7 +309,7 @@ img {
   width: 100%;
   padding: var(--spacing-sm) var(--spacing-md);
   margin-top: var(--spacing-sm);
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   font-size: 1rem;
   background-color: var(--color-text);
   color: var(--color-accent);
@@ -314,6 +367,7 @@ img {
 }
 
 .footer-item {
+  font-family: var(--font-sans);
   font-size: 0.9rem;
   color: #666666;
 }
