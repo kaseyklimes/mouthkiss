@@ -126,5 +126,11 @@
       </span>
     </div>
   </footer>
+  <script>
+    document.querySelectorAll('#signup-form input[required]').forEach(input => {
+      input.oninvalid = () => input.setCustomValidity('hold up who the hell are you');
+      input.oninput = () => input.setCustomValidity('');
+    });
+  </script>
 </body>
 </html>
