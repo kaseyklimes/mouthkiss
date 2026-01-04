@@ -46,21 +46,27 @@
         <div class="wavy-marquee">
           <svg viewBox="0 0 1000 80" preserveAspectRatio="xMidYMid slice">
             <defs>
-              <!-- Wavy path with sine wave: ~4 waves, amplitude 15px -->
-              <path id="wave-path" fill="none" d="M -500 40
-                Q -437.5 15, -375 40 T -250 40 T -125 40 T 0 40
+              <!-- Extended wavy path for seamless looping -->
+              <path id="wave-path" fill="none" d="M -2000 40
+                Q -1937.5 15, -1875 40 T -1750 40 T -1625 40 T -1500 40
+                T -1375 40 T -1250 40 T -1125 40 T -1000 40
+                T -875 40 T -750 40 T -625 40 T -500 40
+                T -375 40 T -250 40 T -125 40 T 0 40
                 T 125 40 T 250 40 T 375 40 T 500 40
                 T 625 40 T 750 40 T 875 40 T 1000 40
-                T 1125 40 T 1250 40 T 1375 40 T 1500 40" />
+                T 1125 40 T 1250 40 T 1375 40 T 1500 40
+                T 1625 40 T 1750 40 T 1875 40 T 2000 40
+                T 2125 40 T 2250 40 T 2375 40 T 2500 40
+                T 2625 40 T 2750 40 T 2875 40 T 3000 40" />
             </defs>
             <text class="wavy-text">
               <textPath href="#wave-path">
-                it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️
+                it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️ it's a cafe in our apartment 〰️
                 <animate
                   attributeName="startOffset"
-                  from="0%"
-                  to="-50%"
-                  dur="20s"
+                  from="0"
+                  to="-2000"
+                  dur="30s"
                   repeatCount="indefinite" />
               </textPath>
             </text>
