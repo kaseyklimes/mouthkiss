@@ -400,8 +400,20 @@ img {
    Responsive Adjustments
    ============================================ */
 @media (max-width: 767px) {
+  .header {
+    padding: 3vw;
+  }
+
+  .logo {
+    height: clamp(60px, 15vh, 100px);
+  }
+
   .hero {
-    padding-top: calc(clamp(80px, 20vh, var(--header-mobile-logo-height)) + 8vw);
+    padding-top: calc(clamp(60px, 15vh, 100px) + 10vw);
+  }
+
+  .schedule {
+    margin-bottom: var(--spacing-md);
   }
 
   .form-row {
@@ -414,7 +426,9 @@ img {
   }
 
   .wavy-marquee {
-    height: 60px;
+    height: 50px;
+    margin-top: calc(var(--spacing-xl) + 0.5rem);
+    margin-bottom: var(--spacing-sm);
   }
 
   .wavy-marquee .wavy-text {
