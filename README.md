@@ -1,109 +1,51 @@
 # Mouthkiss Cafe
 
-A simple landing page for Mouthkiss Cafe - a cafe in our apartment.
+A static landing page for Mouthkiss Cafe — a cafe in our apartment.
 
-## Features
+## Local preview
 
-- Email signup form with YouTube redirect on success
-- Scrolling marquee animation
-- Responsive design
-- Integration with MailerLite for email list management
+Run from this directory:
 
-## Setup
-
-### 1. Add Your Assets
-
-Place your image files in the `assets/` folder:
-
-- `logo.png` - Your Mouthkiss logo (the lip mark image)
-- `background.jpg` - The "dadpad" background image
-- `favicon.ico` - (optional) Browser tab icon
-
-### 2. Set Up MailerLite
-
-#### Step 1: Create Account
-1. Go to [mailerlite.com](https://www.mailerlite.com) and click "Sign up free"
-2. Enter your email and create a password
-3. Complete the onboarding (business name, website, etc.)
-
-#### Step 2: Import Existing Subscribers (if any)
-1. Export your subscriber list from Squarespace as CSV
-2. In MailerLite: Go to **Subscribers** → **Import subscribers**
-3. Upload your CSV file and map the columns
-
-#### Step 3: Create a Form (to get the action URL)
-1. Go to **Sites** → **Forms** → **Embedded forms**
-2. Click **Create embedded form**
-3. Add fields: **Name**, **Last name**, **Email** (design doesn't matter - we use our own form)
-4. Click **Save and publish**
-
-#### Step 4: Get Your Form Action URL
-1. Click **Embed** or **Overview** on your form
-2. Look at the HTML embed code
-3. Find the `action` attribute in the `<form>` tag, e.g.:
-   ```
-   action="https://assets.mailerlite.com/jsonp/123456/forms/987654321/subscribe"
-   ```
-4. Copy that entire URL
-
-#### Step 5: Update Your Site
-1. Open `index.html`
-2. Find line ~73: `action="ACTION_URL"`
-3. Replace `ACTION_URL` with your form action URL
-
-#### Step 6: Test
-1. Open `index.html` in a browser
-2. Fill out the form and submit
-3. Verify:
-   - You get redirected to YouTube
-   - The subscriber appears in MailerLite
-
-### 3. Deploy to Netlify
-
-1. Create a free account at [netlify.com](https://netlify.com)
-2. Click "Add new site" → "Deploy manually"
-3. Drag and drop this entire folder
-4. Your site is live at a random `.netlify.app` URL
-
-### 4. Connect Your Domain
-
-1. In Netlify: Domain settings → Add custom domain → `www.mouthkisscafe.com`
-2. Transfer your domain to Namecheap (~$12/year)
-3. Update DNS to point to Netlify (they provide instructions)
-
-## Local Development
-
-Simply open `index.html` in a browser to preview the site.
-
-**Note:** The signup form won't work locally until you add the MailerLite embed code.
-
-## Structure
-
-```
-/
-├── index.html          # Main landing page
-├── styles.css          # Stylesheet
-├── netlify.toml        # Netlify configuration
-├── assets/
-│   ├── logo.png        # Mouthkiss logo (add this)
-│   ├── background.jpg  # Background image (add this)
-│   └── favicon.ico     # Browser tab icon (optional)
-└── email-template.html # HTML email template for MailerLite
+```sh
+python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-## Email Service
+Open http://127.0.0.1:8000. No build step or package installation is required.
 
-Uses MailerLite (free tier) for:
-- Up to 1,000 subscribers
-- 12,000 emails/month
-- Individual open/click tracking (see who's coming!)
-- HTML email templates
-- Automatic unsubscribe handling
+## Files
 
-## Cost
+- `index.html`: page content and accessible, native signup fields.
+- `styles.css`: responsive layout, local fonts, and form styling.
+- `app.js`: signup handling and the wavy marquee.
+- `assets/`: logo, background, favicons, and fonts.
+- `netlify.toml`: publishes this directory and configures headers.
+- `tests/signup.test.cjs`: signup regression tests using Node's built-in test runner.
 
-- **Netlify hosting:** Free
-- **MailerLite:** Free (for your list size)
-- **Domain renewal:** ~$12/year (Namecheap)
+## Signup
 
-**Total: ~$12/year** (vs $16-27/month for Squarespace)
+The first name, last name, and email fields are included in the HTML. Displaying the form does not require MailerLite JavaScript, cookies, or a third-party download.
+
+The form uses the existing MailerLite account `2016721` and form `175685961394423216` (embed ID `Ooxz0a`). With JavaScript enabled, `app.js` submits via MailerLite's JSONP endpoint and redirects to the existing YouTube video only after a confirmed success. Rejections, blocked requests, and 15-second timeouts show an error and allow retrying without clearing the fields. An email contact link appears if signup fails.
+
+Without JavaScript, the form uses its normal POST action to MailerLite. The custom YouTube redirect requires JavaScript. MailerLite must still be reachable to accept a signup.
+
+If replacing the MailerLite form, update the action URL in `index.html` using the new form's HTML embed code. Keep field names and required fields consistent with its configuration.
+
+## Responsive behavior
+
+The hero uses a minimum viewport height and grows with its content. The logo stays in normal flow; the marquee alone clips its animated content. Name fields stack on narrow phones. Inputs use 16px text, and the page respects safe-area insets and reduced-motion preferences. Without JavaScript or with reduced motion, the marquee displays static text.
+
+## Checks
+
+```sh
+node --check app.js
+node --test tests/signup.test.cjs
+```
+
+Tests simulate service responses; they do not add subscribers. Before deploying, inspect narrow phones, landscape, tablet, and desktop sizes. Check that all fields and the submit button remain reachable, and verify on an actual iPhone when available.
+
+## Deployment
+
+Deploy the directory to the existing Netlify site for `mouthkisscafe.com`. Local edits do not change the live website until deployed.
+
+The stylesheet has a long immutable cache lifetime in `netlify.toml`. Increment its `?v=` reference in `index.html` whenever shipping CSS changes so returning visitors receive the new styles.

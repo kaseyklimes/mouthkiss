@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <title>Mouthkiss Cafe</title>
@@ -27,26 +27,11 @@
   <!-- Fonts loaded via @font-face in styles.css -->
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2">
 
-  <!-- MailerLite Universal -->
-  <script>
-    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-    ml('account', '2016721');
-  </script>
-  <!-- End MailerLite Universal -->
+  <script src="app.js?v=2" defer></script>
 </head>
 <body>
-  <!-- Header with Logo -->
-  <header class="header">
-    <a href="/" class="logo-link">
-      <img src="assets/logo.png" alt="Mouthkiss Cafe" class="logo">
-    </a>
-  </header>
-
   <!-- Main Content -->
   <main class="main">
     <!-- Hero Section with Background -->
@@ -54,21 +39,49 @@
       <div class="hero-background"></div>
       <div class="hero-overlay"></div>
 
+      <!-- Header with Logo -->
+      <header class="header">
+        <a href="/" class="logo-link">
+          <img src="assets/logo.png" alt="Mouthkiss Cafe" class="logo">
+        </a>
+      </header>
+
       <div class="hero-content">
         <!-- Wavy Marquee -->
         <div class="wavy-marquee">
-          <div class="marquee-track" id="marquee-track"></div>
+          <div class="marquee-track" id="marquee-track" aria-hidden="true"></div>
+          <span class="marquee-fallback" aria-hidden="true">it’s a cafe in our apartment 〰️</span>
           <span class="sr-only">it's a cafe in our apartment</span>
         </div>
 
         <!-- Tagline -->
-        <h2 class="tagline">coffee ~ pastries ~ pals</h2>
+        <h1 class="tagline">coffee ~ pastries ~ pals</h1>
 
         <!-- Schedule -->
         <p class="schedule">SUNDAY MORNINGS<br>THIS WINTER</p>
 
-        <!-- Email Signup Form (MailerLite Embedded) -->
-        <div class="ml-embedded" data-form="Ooxz0a"></div>
+        <!-- Fields render locally; MailerLite is contacted only on submission. -->
+        <form class="signup-form" id="signup-form" action="https://assets.mailerlite.com/jsonp/2016721/forms/175685961394423216/subscribe" method="post">
+          <div class="form-row">
+            <div class="form-field">
+              <label class="visually-hidden" for="first-name">First name</label>
+              <input id="first-name" name="fields[name]" type="text" placeholder="First Name" autocomplete="given-name" required>
+            </div>
+            <div class="form-field">
+              <label class="visually-hidden" for="last-name">Last name</label>
+              <input id="last-name" name="fields[last_name]" type="text" placeholder="Last Name" autocomplete="family-name" required>
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="visually-hidden" for="email">Email</label>
+            <input id="email" name="fields[email]" type="email" placeholder="Email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" required>
+          </div>
+          <input type="hidden" name="ml-submit" value="1">
+          <input type="hidden" name="anticsrf" value="true">
+          <button class="submit-btn" type="submit">get a love letter when the cafe is open</button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite" aria-atomic="true"></p>
+          <p class="form-help" id="form-help" hidden>Still having trouble? <a href="mailto:pals@mouthkisscafe.com">Email us</a>.</p>
+        </form>
       </div>
 
       <!-- Wave Section Divider -->
@@ -90,178 +103,5 @@
       </span>
     </div>
   </footer>
-  <script>
-    // Intercept MailerLite form submission for YouTube redirect
-    document.addEventListener('DOMContentLoaded', function() {
-      // Wait for MailerLite to load the form
-      const checkForm = setInterval(function() {
-        const form = document.querySelector('.ml-block-form');
-        if (form) {
-          clearInterval(checkForm);
-
-          // Fix button text and styles
-          const btn = form.querySelector('button.primary');
-          if (btn) {
-            btn.textContent = 'get a love letter when the cafe is open';
-            btn.style.cssText = `
-              background-color: #ffffff !important;
-              color: #fc221c !important;
-              font-family: 'untitled-sans', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-              font-size: 0.875rem !important;
-              font-weight: 600 !important;
-              text-transform: uppercase !important;
-              border: none !important;
-              border-radius: 50px !important;
-              padding: 1rem 2rem !important;
-              width: 100% !important;
-              cursor: pointer !important;
-              transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-            `;
-          }
-
-          // Style all inputs
-          const inputStyle = `
-            background-color: rgba(0, 0, 0, 0.4) !important;
-            color: #ffffff !important;
-            font-family: 'untitled-sans', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-            font-size: 0.875rem !important;
-            border: 1px solid rgba(255, 255, 255, 0.7) !important;
-            border-radius: 50px !important;
-            padding: 1rem 2rem !important;
-            width: 100% !important;
-            box-sizing: border-box !important;
-          `;
-          form.querySelectorAll('input.form-control').forEach(input => {
-            input.style.cssText = inputStyle;
-          });
-
-          // Add placeholder styling via stylesheet
-          const style = document.createElement('style');
-          style.textContent = `
-            .ml-form-embedWrapper input::placeholder {
-              color: rgba(255, 255, 255, 0.85) !important;
-              opacity: 1 !important;
-            }
-          `;
-          document.head.appendChild(style);
-
-          // Add required attribute and custom validation message to email field
-          const emailInput = form.querySelector('input[name="fields[email]"]');
-          if (emailInput) {
-            emailInput.required = true;
-            emailInput.oninvalid = () => emailInput.setCustomValidity('wait, who the hell are you?');
-            emailInput.oninput = () => emailInput.setCustomValidity('');
-          }
-
-          form.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // Validate form first
-            if (!form.checkValidity()) {
-              form.reportValidity();
-              return;
-            }
-
-            const btn = form.querySelector('button.primary');
-            const email = form.querySelector('input[name="fields[email]"]').value;
-            const name = form.querySelector('input[name="fields[name]"]').value;
-            const lastName = form.querySelector('input[name="fields[last_name]"]').value;
-
-            // Update button state
-            if (btn) {
-              btn.disabled = true;
-              btn.textContent = 'sending...';
-            }
-
-            // Submit via JSONP (MailerLite's expected format)
-            const callbackName = 'ml_callback_' + Date.now();
-            let url = form.action + '?callback=' + callbackName;
-            url += '&fields[email]=' + encodeURIComponent(email);
-            url += '&fields[name]=' + encodeURIComponent(name);
-            url += '&fields[last_name]=' + encodeURIComponent(lastName);
-            url += '&ml-submit=1&anticsrf=true&ajax=1';
-
-            // JSONP callback
-            window[callbackName] = function(response) {
-              delete window[callbackName];
-              window.location.href = 'https://www.youtube.com/watch?v=pNj9bXKGOiI&autoplay=1';
-            };
-
-            // Create script tag for JSONP
-            const script = document.createElement('script');
-            script.src = url;
-            script.onerror = function() {
-              window.location.href = 'https://www.youtube.com/watch?v=pNj9bXKGOiI&autoplay=1';
-            };
-            document.body.appendChild(script);
-          });
-        }
-      }, 100);
-    });
-
-    // Infinite wavy marquee
-    (function() {
-      const text = "it's a cafe in our apartment 〰️ ";
-      const track = document.getElementById('marquee-track');
-      const speed = 50; // pixels per second
-      const waveAmplitude = 15; // wave height in pixels
-      const waveFrequency = 0.012; // wave frequency (lower = smoother)
-
-      // Create enough copies to fill screen + extra for seamless loop
-      const copies = Math.ceil(window.innerWidth / (text.length * 14)) + 6;
-      const fullText = text.repeat(copies);
-
-      // Create individual character spans
-      let html = '';
-      for (let i = 0; i < fullText.length; i++) {
-        const char = fullText[i] === ' ' ? '&nbsp;' : fullText[i];
-        html += `<span class="wave-char">${char}</span>`;
-      }
-      track.innerHTML = html;
-
-      // Duplicate the track content for seamless looping
-      const trackWidth = track.offsetWidth;
-      track.innerHTML = html + html;
-
-      // Cache character elements and their approximate positions
-      const chars = Array.from(track.querySelectorAll('.wave-char'));
-      const charCount = chars.length;
-
-      let offset = 0;
-      let lastTime = performance.now();
-
-      function animate(currentTime) {
-        const delta = (currentTime - lastTime) / 1000;
-        lastTime = currentTime;
-
-        offset -= speed * delta;
-
-        // Reset offset when first copy has scrolled out
-        if (Math.abs(offset) >= trackWidth) {
-          offset = 0;
-        }
-
-        // Apply wave effect to each character using GPU-accelerated transform3d
-        for (let i = 0; i < charCount; i++) {
-          const x = i * 14 + offset;
-          const phase = x * waveFrequency;
-
-          // Y position on the wave
-          const y = Math.sin(phase) * waveAmplitude;
-
-          // Rotation = angle of tangent to the wave
-          const tangent = waveAmplitude * waveFrequency * Math.cos(phase);
-          const angle = Math.atan(tangent) * (180 / Math.PI);
-
-          chars[i].style.transform = `translate3d(0, ${y}px, 0) rotate(${angle}deg)`;
-        }
-
-        track.style.transform = `translate3d(${offset}px, 0, 0)`;
-        requestAnimationFrame(animate);
-      }
-
-      requestAnimationFrame(animate);
-    })();
-  </script>
 </body>
 </html>
